@@ -1,6 +1,6 @@
+import spaces
 import torch
 from diffusers import StableDiffusion3InstructPix2PixPipeline, SD3Transformer2DModel
-import spaces
 import gradio as gr
 import PIL.Image
 import numpy as np
