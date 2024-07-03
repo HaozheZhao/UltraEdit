@@ -49,6 +49,27 @@ def generate(image_mask, prompt, num_inference_steps=50, image_guidance_scale=1.
 
     return image
 
+example_lists=[
+    
+    [['UltraEdit/images/example_images/1-input.png','UltraEdit/images/example_images/1-mask.png','UltraEdit/images/example_images/1-merged.png'], "Add a moon in the sky", 20, 1.5, 12.5,255],
+    
+    [['UltraEdit/images/example_images/1-input.png','UltraEdit/images/example_images/1-input.png','UltraEdit/images/example_images/1-input.png'], "Add a moon in the sky", 20, 1.5, 6.5,255],
+    
+    [['UltraEdit/images/example_images/2-input.png','UltraEdit/images/example_images/2-mask.png','UltraEdit/images/example_images/2-merged.png'], "add cherry blossoms", 20, 1.5, 12.5,255],
+    
+    [['UltraEdit/images/example_images/3-input.png','UltraEdit/images/example_images/3-mask.png','UltraEdit/images/example_images/3-merged.png'], "Please dress her in a short purple wedding dress adorned with white floral embroidery.", 20, 1.5, 6.5,255],
+
+    [['UltraEdit/images/example_images/4-input.png','UltraEdit/images/example_images/4-mask.png','UltraEdit/images/example_images/4-merged.png'], "give her a chief's headdress.", 20, 1.5, 7.5, 24555]
+
+]
+mask_ex_list = []
+for exp in example_lists:
+    ex_dict= {}
+    ex_dict['background'] = exp[0][0]
+    ex_dict['layers'] =  [exp[0][1],exp[0][2]]
+    ex_dict['composite'] =  exp[0][2]
+    re_list = [ex_dict, exp[1],exp[2],exp[3],exp[4],exp[5]]
+    mask_ex_list.append(re_list)
 
 # image_mask_input = gr.ImageMask(label="Input Image", type="pil", brush_color="#000000", elem_id="inputmask",
 #                                 shape=(512, 512))
@@ -120,7 +141,8 @@ demo = gr.Interface(
     inputs=inputs,
     outputs=outputs,
     description=article_html,  # Add article parameter
-    article = html
+    article = html,
+    examples=mask_ex_list
 )
 
 demo.queue().launch()

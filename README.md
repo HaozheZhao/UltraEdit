@@ -73,9 +73,9 @@ bash scripts/run_sft_512_with_mask_sd15_stage2.sh
 Below is an example of how to use our pipeline for image editing. Given an input image and a mask image, the model can generate the edited result according to the provided prompt.
 
 <p float="left">
-  <img src="input.png" width="200" />
-  <img src="mask_img.png" width="200" style="border-left:1px solid black;" />
-  <img src="editing_result.png" width="200" style="border-left:1px solid black;" />
+  <img src="images/input.png" width="200" />
+  <img src="images/mask_img.png" width="200" style="border-left:1px solid black;" />
+  <img src="images/editing_result.png" width="200" style="border-left:1px solid black;" />
 </p>
 
 ```python
