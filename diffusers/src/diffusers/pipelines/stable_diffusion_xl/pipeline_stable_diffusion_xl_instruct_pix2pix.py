@@ -636,6 +636,7 @@ class StableDiffusionXLInstructPix2PixPipeline(
         original_size: Tuple[int, int] = None,
         crops_coords_top_left: Tuple[int, int] = (0, 0),
         target_size: Tuple[int, int] = None,
+        mask_img: Optional[PipelineImageInput] = None,
         **kwargs
     ):
         r"""
@@ -848,6 +849,19 @@ class StableDiffusionXLInstructPix2PixPipeline(
 
         # 8. Check that shapes of latents and image match the UNet channels
         num_channels_image = image_latents.shape[1]
+        if mask_img is not None:
+            mask_img = self.image_processor.preprocess(mask_img)
+            mask_image_latents = self.prepare_image_latents(
+                mask_img,
+                batch_size,
+                num_images_per_prompt,
+                prompt_embeds.dtype,
+                device,
+                self.do_classifier_free_guidance,
+            )
+
+            num_channels_image += mask_image_latents.shape[1]
+
         if num_channels_latents + num_channels_image != self.unet.config.in_channels:
             raise ValueError(
                 f"Incorrect configuration settings! The config of `pipeline.unet`: {self.unet.config} expects"
@@ -909,6 +923,8 @@ class StableDiffusionXLInstructPix2PixPipeline(
                 # concat latents, image_latents in the channel dimension
                 scaled_latent_model_input = self.scheduler.scale_model_input(latent_model_input, t)
                 scaled_latent_model_input = torch.cat([scaled_latent_model_input, image_latents], dim=1)
+                if mask_img is not None:
+                    scaled_latent_model_input = torch.cat([scaled_latent_model_input, mask_image_latents], dim=1)
 
                 # predict the noise residual
                 added_cond_kwargs = {"text_embeds": add_text_embeds, "time_ids": add_time_ids}
