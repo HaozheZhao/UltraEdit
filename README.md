@@ -1,4 +1,29 @@
-# UltraEdit
+<h1 align="center">UltraEdit</h1>
+
+<p align="center">
+
+[//]: # (<a href="https://arxiv.org/abs/2403.06764">)
+
+[//]: # (<img alt="Static Badge" src="https://img.shields.io/badge/arXiv-2403.06764-red"></a>)
+
+<a href="https://huggingface.co/spaces/jeasinema/UltraEdit-SD3">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Demo-Gradio-green">
+</a>
+
+<a href="https://huggingface.co/datasets/BleachNick/UltraEdit">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Dataset-HuggingFace-blue">
+</a>
+
+<a href="https://ultra-editing.github.io/">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Page-Link-yellow">
+</a>
+
+<a href="https://huggingface.co/BleachNick/SD3_UltraEdit_w_mask">
+    <img alt="Static Badge" src="https://img.shields.io/badge/Model-HuggingFace-red">
+</a>
+
+</p>
+
 This repository contains code, models, and datasets for UltraEdit.
 
 ## Introduction
