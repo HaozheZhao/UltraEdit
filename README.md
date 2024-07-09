@@ -39,7 +39,7 @@ Our analysis further confirms the crucial role of real image anchors and region-
 
 ## Training
 
-**Setup: ** 
+**Setup:** 
 
 ```
 pip install -r requirements
