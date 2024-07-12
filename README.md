@@ -129,7 +129,20 @@ image = pipe(
 image.save("edited_image.png")
 # display image
 ```
+## Citation
 
+If you find our work useful, please kindly cite
+```bib
+@misc{zhao2024ultraeditinstructionbasedfinegrainedimage,
+      title={UltraEdit: Instruction-based Fine-Grained Image Editing at Scale}, 
+      author={Haozhe Zhao and Xiaojian Ma and Liang Chen and Shuzheng Si and Rujie Wu and Kaikai An and Peiyu Yu and Minjia Zhang and Qing Li and Baobao Chang},
+      year={2024},
+      eprint={2407.05282},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2407.05282}, 
+}
+```
 
 [//]: # ()
 [//]: # (## License)
