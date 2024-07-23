@@ -512,6 +512,8 @@ def convert_to_np(image, resolution):
                 image = PIL.Image.new("RGB", (resolution, resolution),(255, 255, 255))
             else:
                 image = PIL.Image.open(image)
+        elif image is None:
+            image = PIL.Image.new("RGB", (resolution, resolution), (255, 255, 255))
         image = image.convert("RGB").resize((resolution, resolution))
         return np.array(image).transpose(2, 0, 1)
     except Exception as e:
