@@ -47,6 +47,72 @@ pip install -r requirements
 cd diffusers && pip install -e .
 ```
 
+> If you encounter issue with latest `diffusers` package. Here is a quick tour to enable inference with **UltraEdit** (i.e., `StableDiffusion3InstructPix2PixPipeline`)
+
+<details>
+<summary>TL:DR</summary>
+As we only need a new pipeline named `StableDiffusion3InstructPix2PixPipeline` to be registered in diffusers package, you can simply modify your `diffusers` source code in your env as follow:
+
+1. Insert two single line under `/path/to/your/env/lib/your_python_version/site-packages/diffusers/__init__.py`
+
+```python
+_import_structure["pipelines"].extend(
+    [
+    "StableDiffusion3Img2ImgPipeline",     # existing pipelines
+    "StableDiffusion3InpaintPipeline",     # existing pipelines
+    "StableDiffusion3InstructPix2PixPipeline", # add this
+    ]
+)
+
+## exisitng code ##
+from .pipelines import (
+    StableDiffusion3Img2ImgPipeline,     # existing pipelines
+    StableDiffusion3InpaintPipeline,     # existing pipelines
+    StableDiffusion3InstructPix2PixPipeline, # add this line
+)
+```
+2. Insert two single line under `/path/to/your/env/lib/your_python_version/site-packages/diffusers/pipelines/__init__.py`
+
+```python
+_import_structure["stable_diffusion_3"] = [
+    "StableDiffusion3Pipeline",  # existing pipelines
+    "StableDiffusion3Img2ImgPipeline",  # existing pipelines
+    "StableDiffusion3InpaintPipeline",  # existing pipelines
+    "StableDiffusion3InstructPix2PixPipeline", # add this line
+]
+
+## exisitng code ##
+
+from .stable_diffusion_3 import (
+    StableDiffusion3Img2ImgPipeline, # existing pipelines
+    StableDiffusion3InpaintPipeline, # existing pipelines
+    StableDiffusion3Pipeline, # existing pipelines
+    StableDiffusion3InstructPix2PixPipeline, # add this line
+    )
+```
+
+3. Copy file `UltralEdit/src/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3_instructpix2pix.py` to `/path/to/your/env/lib/your_python_version/site-packages/diffusers/pipelines/stable_diffusion_3/pipeline_stable_diffusion_3_instructpix2pix.py`
+
+4. Insert two single line under `/path/to/your/env/lib/your_python_version/site-packages/diffusers/pipelines/stable_diffusion_3/__init__.py`
+
+```python
+else:
+    _import_structure["pipeline_stable_diffusion_3"] = ["StableDiffusion3Pipeline"]
+    _import_structure["pipeline_stable_diffusion_3_img2img"] = ["StableDiffusion3Img2ImgPipeline"]
+    _import_structure["pipeline_stable_diffusion_3_inpaint"] = ["StableDiffusion3InpaintPipeline"]
+    _import_structure["pipeline_stable_diffusion_3_instructpix2pix"] = ["StableDiffusion3InstructPix2PixPipeline"] # add this line
+
+## exisitng code ##
+
+from .pipeline_stable_diffusion_3 import StableDiffusion3Pipeline
+from .pipeline_stable_diffusion_3_img2img import StableDiffusion3Img2ImgPipeline
+from .pipeline_stable_diffusion_3_inpaint import StableDiffusion3InpaintPipeline
+from .pipeline_stable_diffusion_3_instructpix2pix import StableDiffusion3InstructPix2PixPipeline # add this line
+```
+Okay, done it! Please especially pay attention to indent (where we highly recommend using python auto format check while editing), otherwise you may encounter indent error.
+
+</details>
+
 ### Training with stable-diffusion3
 
 **Stage 1: Free-form image editing**
